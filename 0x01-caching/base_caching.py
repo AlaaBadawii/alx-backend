@@ -30,6 +30,3 @@ class BaseCaching():
         """ Get an item by key
         """
         raise NotImplementedError("get must be implemented in your cache class")
-    
-m = BaseCaching()
-print(m.cache_data)
