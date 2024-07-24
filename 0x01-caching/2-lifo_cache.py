@@ -13,7 +13,7 @@ class LIFOCache(BaseCaching):
         """
         put item into cache
         """
-        if not key or not item:
+        if key is None or item is None:
             return
         if key in self.cache_data:
             self.cache_data.pop(key)
@@ -31,7 +31,7 @@ class LIFOCache(BaseCaching):
         """
         get item from cache
         """
-        if not key or key not in self.cache_data:
+        if key is None or key not in self.cache_data:
             return None
 
         return self.cache_data[key]
