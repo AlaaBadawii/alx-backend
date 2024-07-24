@@ -21,7 +21,7 @@ class MRUCache(BaseCaching):
         if key is None or item is None:
             return
 
-        if len(self.cache_data) >= self.MAX_ITEMS:
+        if len(self.cache_data) > self.MAX_ITEMS:
             if key not in self.cache_data:
                 rm_key = list(self.cache_data.keys())[0]
                 self.cache_data.pop(rm_key)
