@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Basic Flask app """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 
@@ -22,7 +22,6 @@ users = {
 }
 
 
-
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home():
     """ Home page """
@@ -30,12 +29,26 @@ def home():
 
 
 @babel.localeselector
-def get_locale():
-    """Gwt locale"""
-    locale = request.get('locale')
-    if locale and locale in app.config['LANGUAGES']:
-        return locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+def get_locale() -> str:
+    """ doc doc doc """
+    if request.args.get("locale") in app.config["LANGUAGES"]:
+        return request.args.get("locale")
+    return request.accept_languages.best_match(app.config["LANGUAGES"])
+
+
+def get_user():
+    """Get user"""
+    user_id = request.args.get('login_as')
+    if user_id is not None and user_id in users:
+        return users[user_id]
+    return None
+
+
+@app.before_request
+def before_request():
+    """Before request"""
+    user = get_user()
+    g.user = user
 
 
 if __name__ == "__main__":

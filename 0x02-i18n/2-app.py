@@ -27,5 +27,6 @@ def get_locale():
     """Gwt locale"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
+
 if __name__ == "__main__":
     app.run(host="localhost", port=5000)
